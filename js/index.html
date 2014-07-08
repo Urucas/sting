@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head></head>
+<body>
+<p>Sting</p>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="jquery.js"></script>	
+<script src="jquery.render.js"></script>
+
+<script>
+  var socket = io();
+	
+	socket.on("next", function(u){
+		console.log("next");
+	});
+
+
+	
+</script>
+</body>
+</html>
