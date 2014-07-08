@@ -8,9 +8,23 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".Main">
 
-    <TextView
-        android:text="@string/hello_world"
+
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="prev"
+        android:id="@+id/prevButton"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="next"
+        android:id="@+id/nextButton"
+        android:layout_alignBottom="@+id/prevButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

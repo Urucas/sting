@@ -12,6 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+
+import io.socket.IOAcknowledge;
+import io.socket.IOCallback;
+import io.socket.SocketIO;
+import io.socket.SocketIOException;
+
 
 public class Main extends ActionBarActivity {
 
@@ -19,6 +29,54 @@ public class Main extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SocketIO socket = null;
+        try {
+            socket = new SocketIO("http://127.0.0.1:3001/");
+
+        socket.connect(new IOCallback() {
+            @Override
+            public void onMessage(JSONObject json, IOAcknowledge ack) {
+                try {
+                    System.out.println("Server said:" + json.toString(2));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onMessage(String data, IOAcknowledge ack) {
+                System.out.println("Server said: " + data);
+            }
+
+            @Override
+            public void onError(SocketIOException socketIOException) {
+                System.out.println("an Error occured");
+                socketIOException.printStackTrace();
+            }
+
+            @Override
+            public void onDisconnect() {
+                System.out.println("Connection terminated.");
+            }
+
+            @Override
+            public void onConnect() {
+                System.out.println("Connection established");
+            }
+
+            @Override
+            public void on(String event, IOAcknowledge ack, Object... args) {
+                System.out.println("Server triggered event '" + event + "'");
+            }
+        });
+
+        // This line is cached until the connection is establisched.
+        socket.send("Hello Server!");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);
         MediaButtonIntentReceiver r = new MediaButtonIntentReceiver();
@@ -36,7 +94,8 @@ public class Main extends ActionBarActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String intentAction = intent.getAction();
-            Log.i("aca", "pressed");
+            Toast.makeText(context, "presssed", Toast.LENGTH_LONG);
+
             if (!Intent.ACTION_MEDIA_BUTTON.equals(intentAction)) {
                 return;
             }
