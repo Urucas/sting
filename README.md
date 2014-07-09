@@ -1,4 +1,4 @@
 sting
 =====
 
-Android library to use headset button to control events in your app
+Android, web library to communicate your apps and site with socket.io
