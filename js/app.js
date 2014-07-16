@@ -43,11 +43,11 @@ io.on('connection', function(socket){
 	});
 
 	socket.on("next", function(){
-		console.log("next");
+		socket.broadcast.emit("next", null);
 	});
 
 	socket.on("prev", function(){
-		console.log("prev");
+		socket.broadcast.emit("prev", null);
 	});
 
 });

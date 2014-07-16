@@ -1,15 +1,16 @@
 {
   "name": "sting",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "description": "Android, web library to communicate your apps and site with socket.io",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.5.1",
+    "express": "^4.6.1",
     "socket.io": "^1.0.6"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,9 @@
   "bugs": {
     "url": "https://github.com/Urucas/sting/issues"
   },
-  "homepage": "https://github.com/Urucas/sting"
+  "homepage": "https://github.com/Urucas/sting",
+  "subdomain": "sting",
+  "engines": {
+    "node": "0.10.x"
+  }
 }

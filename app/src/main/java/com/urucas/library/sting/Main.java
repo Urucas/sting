@@ -32,10 +32,8 @@ public class Main extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        
-
             try {
-                socket = IO.socket("http://urucas-piano.jit.su/");
+                socket = IO.socket("http://sting.jit.su/");
                 socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
                     @Override
@@ -47,7 +45,7 @@ public class Main extends ActionBarActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        socket.emit("play", note);
+                        socket.emit("next", "");
                         socket.disconnect();
                     }
 

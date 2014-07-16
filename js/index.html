@@ -9,16 +9,18 @@
 
 <script src="jquery.js"></script>	
 <script src="jquery.render.js"></script>
+<script src="sting.js"></script>
 
 <script>
-  var socket = io();
-	
-	socket.on("next", function(u){
-		console.log("next");
-	});
-
-
-	
+var sting = new sting({
+	next: function(){
+		alert("next");
+	},
+	prev: function(){
+		alert("prev");
+	}
+});
 </script>
+
 </body>
 </html>
