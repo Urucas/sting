@@ -32,51 +32,42 @@ public class Main extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-<<<<<<< HEAD
-            socket = new SocketIO("http://urucas-piano.jit.su");
+        
 
-        socket.connect(new IOCallback() {
-            @Override
-            public void onMessage(JSONObject json, IOAcknowledge ack) {
-                try {
-                    System.out.println("Server said:" + json.toString(2));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-=======
-            socket = IO.socket("http://urucas-piano.jit.su/");
-            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            try {
+                socket = IO.socket("http://urucas-piano.jit.su/");
+                socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
-                @Override
-                public void call(Object... args) {
-                    JSONObject note = new JSONObject();
-                    try {
-                        note.put("note","g");
-                        note.put("octave","5");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    @Override
+                    public void call(Object... args) {
+                        JSONObject note = new JSONObject();
+                        try {
+                            note.put("note","g");
+                            note.put("octave","5");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        socket.emit("play", note);
+                        socket.disconnect();
                     }
-                    socket.emit("play", note);
-                    socket.disconnect();
->>>>>>> f8c9ac613c3607d5734e456310b9d9a69a35f9aa
-                }
 
-            }).on("event", new Emitter.Listener() {
+                }).on("event", new Emitter.Listener() {
 
-                @Override
-                public void call(Object... args) {}
+                    @Override
+                    public void call(Object... args) {}
 
-            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+                }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
 
-                @Override
-                public void call(Object... args) {
-                }
+                    @Override
+                    public void call(Object... args) {
+                    }
 
-            });
-            socket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+                });
+                socket.connect();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);
         MediaButtonIntentReceiver r = new MediaButtonIntentReceiver();
