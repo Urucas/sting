@@ -32,7 +32,7 @@ public class Main extends ActionBarActivity {
 
         SocketIO socket = null;
         try {
-            socket = new SocketIO("http://127.0.0.1:3001/");
+            socket = new SocketIO("http://urucas-piano.jit.su");
 
         socket.connect(new IOCallback() {
             @Override
@@ -76,7 +76,6 @@ public class Main extends ActionBarActivity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);
         MediaButtonIntentReceiver r = new MediaButtonIntentReceiver();
