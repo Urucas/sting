@@ -12,26 +12,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
-
-import io.socket.IOAcknowledge;
-import io.socket.IOCallback;
-import io.socket.SocketIO;
-import io.socket.SocketIOException;
+import java.net.URISyntaxException;
 
 
 public class Main extends ActionBarActivity {
+
+    private Socket socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SocketIO socket = null;
         try {
+<<<<<<< HEAD
             socket = new SocketIO("http://urucas-piano.jit.su");
 
         socket.connect(new IOCallback() {
@@ -41,39 +43,38 @@ public class Main extends ActionBarActivity {
                     System.out.println("Server said:" + json.toString(2));
                 } catch (JSONException e) {
                     e.printStackTrace();
+=======
+            socket = IO.socket("http://urucas-piano.jit.su/");
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    JSONObject note = new JSONObject();
+                    try {
+                        note.put("note","g");
+                        note.put("octave","5");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    socket.emit("play", note);
+                    socket.disconnect();
+>>>>>>> f8c9ac613c3607d5734e456310b9d9a69a35f9aa
                 }
-            }
 
-            @Override
-            public void onMessage(String data, IOAcknowledge ack) {
-                System.out.println("Server said: " + data);
-            }
+            }).on("event", new Emitter.Listener() {
 
-            @Override
-            public void onError(SocketIOException socketIOException) {
-                System.out.println("an Error occured");
-                socketIOException.printStackTrace();
-            }
+                @Override
+                public void call(Object... args) {}
 
-            @Override
-            public void onDisconnect() {
-                System.out.println("Connection terminated.");
-            }
+            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
 
-            @Override
-            public void onConnect() {
-                System.out.println("Connection established");
-            }
+                @Override
+                public void call(Object... args) {
+                }
 
-            @Override
-            public void on(String event, IOAcknowledge ack, Object... args) {
-                System.out.println("Server triggered event '" + event + "'");
-            }
-        });
-
-        // This line is cached until the connection is establisched.
-        socket.send("Hello Server!");
-        } catch (MalformedURLException e) {
+            });
+            socket.connect();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
