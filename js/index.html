@@ -1,15 +1,77 @@
 <!doctype html>
 <html>
-<head></head>
+<head>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="/reveal/css/reveal.min.css">
+		<link rel="stylesheet" href="/reveal/css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="/reveal/lib/css/zenburn.css">
+
+		<script src="/socket.io/socket.io.js"></script>
+
+		<script src="/js/jquery.js"></script>	
+		<script src="/js/jquery.render.js"></script>
+		<script src="/js/sting.js"></script>
+
+</head>
 <body>
-<p>Sting</p>
+
+	<div class="reveal">
+
+		<div class="slides">
+    	<section class="" data-id="5bd0d7670bafc7c4b875cd13ba821ebe">
+       	<h1>Sting library</h1>
+	    </section>
+    	<section class="" data-id="93ca9507b499a9d1dd3bc77164f03ef0">
+        <h2>Manage your presentations from your android</h2>
+	    </section>
+  	  <section class="" data-id="e62ef51c4d3f1641629c83d67a80de40">
+        <h2>Testing</h2>
+	    </section>
+	</div>
+</div>
+
+	<script src="/reveal/js/reveal.js"></script>
+
+	<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				/*
+				dependencies: [
+					{ src: '/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '/reveal/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '/reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+				*/
+			});
+
+		</script>
 
 
-<script src="/socket.io/socket.io.js"></script>
-
-<script src="jquery.js"></script>	
-<script src="jquery.render.js"></script>
-<script src="sting.js"></script>
 
 <script>
 sting.next(function(){

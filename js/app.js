@@ -7,7 +7,7 @@ app.get('/', function(req, res){
 });
 
 app.get('*.js', function(req, res){
-	res.sendfile("public/js/"+req.path);
+	res.sendfile("public/"+req.path);
 });
 
 app.get('*.html', function(req,res){
@@ -15,7 +15,7 @@ app.get('*.html', function(req,res){
 });
 
 app.get('*.css', function(req, res){
-	res.sendfile('public/css/'+req.path);
+	res.sendfile('public/'+req.path);
 });
 
 Array.prototype.shuffle = function(){
