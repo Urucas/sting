@@ -64,6 +64,7 @@ public class Main extends ActionBarActivity {
         });
 
         preview = (WebView) findViewById(R.id.previewWebView);
+        preview.getSettings().setJavaScriptEnabled(true);
         preview.loadUrl(url);
     }
 
