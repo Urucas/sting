@@ -44,7 +44,7 @@
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				controls: true,
+				controls: false,
 				progress: true,
 				history: true,
 				center: true,
@@ -75,8 +75,11 @@
 
 <script>
 sting.next(function(){
-	alert("next");		
-})
+	Reveal.right();	
+});
+sting.prev(function(){
+	Reveal.left();
+});
 </script>
 
 </body>
