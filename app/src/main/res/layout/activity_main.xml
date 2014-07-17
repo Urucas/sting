@@ -8,23 +8,35 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".Main">
 
+    <WebView
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
 
-    <Button
+        android:id="@+id/previewWebView"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true" />
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="prev"
+        android:src="@android:drawable/ic_media_previous"
         android:id="@+id/prevButton"
-        android:layout_centerVertical="true"
+        android:layout_alignBottom="@+id/previewWebView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="next"
+        android:src="@android:drawable/ic_media_next"
         android:id="@+id/nextButton"
-        android:layout_alignBottom="@+id/prevButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/previewWebView"
+        android:layout_alignRight="@+id/previewWebView"
+        android:layout_alignEnd="@+id/previewWebView" />
+
+
 
 </RelativeLayout>

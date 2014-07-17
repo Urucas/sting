@@ -1,5 +1,7 @@
 package com.urucas.library.sting;
 
+import android.util.Log;
+
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -16,43 +18,37 @@ public class Sting {
 
     private Socket socket;
 
+    public void emitNext() {
+        socket.emit("next", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                JSONObject obj = (JSONObject)args[0];
+                Log.i("vuelta", obj.toString());
+            }
+        });
+    }
+
+    public void emitPrev() {
+        socket.emit("prev", new Emitter.Listener(){
+
+            @Override
+            public void call(Object... args) {
+                Log.i("prev", "prev");
+            }
+        });
+    }
+
     public Sting(String url) {
 
         try {
             socket = IO.socket(url);
-            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                    /*
-                    JSONObject note = new JSONObject();
-                    try {
-                        note.put("note","g");
-                        note.put("octave","5");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    */
-                    socket.emit("next", "");
-                    socket.disconnect();
-                }
-
-            }).on("event", new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {}
-
-            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                }
-
-            });
             socket.connect();
+
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
     }
+
+
 }

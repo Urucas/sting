@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -25,6 +29,11 @@ import java.net.URISyntaxException;
 
 public class Main extends ActionBarActivity {
 
+    private ImageButton prevButton;
+    private WebView preview;
+    private ImageButton nextButton;
+    private Sting sting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +44,27 @@ public class Main extends ActionBarActivity {
         filter.setPriority(10000);
         registerReceiver(r, filter);
 
-        Sting sting = new Sting("http://sting.jit.su/");
+        String url = "http://sting.jit.su/";
+        sting = new Sting(url);
 
+        nextButton = (ImageButton) findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sting.emitNext();
+            }
+        });
+
+        prevButton = (ImageButton) findViewById(R.id.prevButton);
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sting.emitPrev();
+            }
+        });
+
+        preview = (WebView) findViewById(R.id.previewWebView);
+        preview.loadUrl(url);
     }
 
     public class MediaButtonIntentReceiver extends BroadcastReceiver {
