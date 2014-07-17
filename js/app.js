@@ -24,30 +24,19 @@ Array.prototype.shuffle = function(){
 	return o;
 }
 
-var sockets = [];
-var listener = function(){
-	this.next = function(callback){
-		callback();
-	};
-	this.prev = function(callback){
-		callback();
-	}
-};
-var _listener = new listener();
-
 io.on('connection', function(socket){
 
-	socket.broadcast.emit("connected", _listener);
-
+	console.log("connection");
 	socket.on('disconnect', function(){
 	});
 
 	socket.on("next", function(){
-		socket.broadcast.emit("next", null);
+		console.log("n");
+		socket.broadcast.emit("next");
 	});
 
 	socket.on("prev", function(){
-		socket.broadcast.emit("prev", null);
+		socket.broadcast.emit("prev");
 	});
 
 });

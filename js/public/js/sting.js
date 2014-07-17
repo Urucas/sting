@@ -1,18 +1,23 @@
-var sting = function(options){
-	
-	this.socket = io();
-	
-	this.options = options || {
-		"next" : function(){
-			console.log("sting > next");
-		},
-		"prev" : function(){
-			console.log("sting > prev");
-		}
-	}
+var socket = io();
+		socket.on("next", function(u){
+			var callback = sting._nextCallback;
+			try { callback(u); }catch(e){ console.log(e); }
+		});
+		socket.on("prev", function(u){
+			var callback = sting._prevCallback;
+			try {	callback(u); }catch(e) { console.log(e); }
+		});
 
-	this._nextCallback = this.options.next;
-	this._prevCallback = this.options.prev;
+function __sting__(){
+	
+	console.log("sting created");
+	this._nextCallback = function(){
+		console.log("next");
+	};
+
+	this._prevCallback = function(){
+		console.log("prev");
+	};
 
 	this.next = function(callback) {
 		this._nextCallback = callback;
@@ -21,20 +26,7 @@ var sting = function(options){
 	this.prev = function(callback) {
 		this._prevCallback = callback;
 	};
-
-	this.socket.on("next", function(u){
-		var calllback = this._nextCallback;
-		if(callback != undefined && callback instanceof Function) {
-			callback(u);
-		}
-	});
-
-	this.socket.on("prev", function(u){
-		var callback = this._prevCallback;
-		if(callback != undefined && callback instanceof Function) {
-			callback(u);
-		}
-	});
-
+	
 };
 
+var sting = new __sting__();

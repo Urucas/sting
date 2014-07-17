@@ -25,52 +25,17 @@ import java.net.URISyntaxException;
 
 public class Main extends ActionBarActivity {
 
-    private Socket socket;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-            try {
-                socket = IO.socket("http://sting.jit.su/");
-                socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-
-                    @Override
-                    public void call(Object... args) {
-                        JSONObject note = new JSONObject();
-                        try {
-                            note.put("note","g");
-                            note.put("octave","5");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        socket.emit("next", "");
-                        socket.disconnect();
-                    }
-
-                }).on("event", new Emitter.Listener() {
-
-                    @Override
-                    public void call(Object... args) {}
-
-                }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
-
-                    @Override
-                    public void call(Object... args) {
-                    }
-
-                });
-                socket.connect();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-
-
         IntentFilter filter = new IntentFilter(Intent.ACTION_MEDIA_BUTTON);
         MediaButtonIntentReceiver r = new MediaButtonIntentReceiver();
         filter.setPriority(10000);
         registerReceiver(r, filter);
+
+        Sting sting = new Sting("http://sting.jit.su/");
 
     }
 
