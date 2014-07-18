@@ -1,6 +1,6 @@
 {
   "name": "sting",
-  "version": "0.0.1-6",
+  "version": "0.0.1-7",
   "description": "Android, web library to communicate your apps and site with socket.io",
   "main": "app.js",
   "dependencies": {

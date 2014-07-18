@@ -34,10 +34,11 @@ app.get('*.css', function(req, res){
 var user, chat, usersOnline = 0;
 app.get('/:user/:presentation', function(req, res){
 	user = req.params;
-	chat = req.path;
+	chat = user.user+"-"+user.presentation;
+
 	res.sendfile("views/index.html");
-	
-	io.of(chat)	
+	console.log("chatroom: "+ chat);
+	io.of(chat)
 		.on('connection', function(socket){
 		usersOnline++;
 		console.log("Users online: "+usersOnline);

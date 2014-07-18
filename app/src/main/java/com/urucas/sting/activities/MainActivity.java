@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = "http://sting.jit.su/";
+        String url = "http://sting.jit.su/urucas/sting/";
         sting = new Sting(url);
 
         nextButton = (ImageButton) findViewById(R.id.nextButton);
@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity {
         preview = (WebView) findViewById(R.id.previewWebView);
         preview.getSettings().setJavaScriptEnabled(true);
         preview.setWebViewClient(new BrowserClient());
-        preview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        //preview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         preview.loadUrl(url);
 
