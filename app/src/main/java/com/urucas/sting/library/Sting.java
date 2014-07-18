@@ -1,5 +1,7 @@
 package com.urucas.sting.library;
 
+import android.util.Log;
+
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
@@ -51,7 +53,26 @@ public class Sting {
 
     public Sting(String url) {
         try {
+
             socket = IO.socket(url);
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Log.i("connected", "yes");
+                }
+            });
+            socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Log.i("disconnected", "yes");
+                }
+            });
+            socket.on(Socket.EVENT_ERROR, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Log.i("error", "aca");
+                }
+            });
             socket.connect();
 
         } catch (URISyntaxException e) {
