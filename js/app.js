@@ -38,7 +38,7 @@ app.get('/:user/:presentation', function(req, res){
 
 	res.sendfile("views/index.html");
 	console.log("chatroom: "+ chat);
-	io.of(chat)
+	io.of("/"+chat)
 		.on('connection', function(socket){
 		usersOnline++;
 		console.log("Users online: "+usersOnline);
