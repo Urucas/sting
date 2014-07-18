@@ -1,32 +1,41 @@
-var socket = io();
-		socket.on("next", function(u){
-			var callback = sting._nextCallback;
-			try { callback(u); }catch(e){ console.log(e); }
-		});
-		socket.on("prev", function(u){
-			var callback = sting._prevCallback;
-			try {	callback(u); }catch(e) { console.log(e); }
-		});
+function Sting() {
+	this._left = this._right = this._up = this._down = null;
+	this.left = function(callback) {
+		this._left = callback;
+	}
+	this.right = function(callback) {
+		this._right = callback;
+	}
+	this.up = function(callback) {
+		this._up = callback;
+	}
+	this.down = function(callback) {
+		this._down = callback;
+	}
+}
 
-function __sting__(){
-	
-	console.log("sting created");
-	this._nextCallback = function(){
-		console.log("next");
-	};
-
-	this._prevCallback = function(){
-		console.log("prev");
-	};
-
-	this.next = function(callback) {
-		this._nextCallback = callback;
-	};
-	
-	this.prev = function(callback) {
-		this._prevCallback = callback;
-	};
-	
+var __sting__;
+function sting() {
+	if(__sting__ == undefined) {
+		__sting__ = new Sting();
+	}
+	return __sting__;
 };
 
-var sting = new __sting__();
+var socket = io();
+socket.on("left", function(u){
+var callback = sting()._left;
+	try { callback(u); }catch(e){ console.log(e); }
+});
+socket.on("right", function(u){
+	var callback = sting()._right;
+	try {	callback(u); }catch(e) { console.log(e); }
+});
+socket.on("up", function(u){
+	var callback = sting()._up;
+	try {	callback(u); }catch(e) { console.log(e); }
+});
+socket.on("down", function(u){
+	var callback = sting()._down;
+	try {	callback(u); }catch(e) { console.log(e); }
+});

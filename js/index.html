@@ -76,12 +76,12 @@
 
 
 <script>
-sting.next(function(){
-	Reveal.right();	
-});
-sting.prev(function(){
-	Reveal.left();
-});
+
+var s = sting();
+		s.right(function(){ Reveal.right();	});
+		s.left(function(){ Reveal.left();	});
+		s.up(function(){ Reveal.up(); });
+		s.down(function(){ Reveal.down(); });
 </script>
 
 </body>

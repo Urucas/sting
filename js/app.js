@@ -18,25 +18,30 @@ app.get('*.css', function(req, res){
 	res.sendfile('public/'+req.path);
 });
 
-Array.prototype.shuffle = function(){
-	var o = this;
-	for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-	return o;
-}
+var usersOnline = 0;
 
 io.on('connection', function(socket){
 
-	console.log("connection");
+	usersOnline++;
+	console.log("Users online: "+usersOnline);
 	socket.on('disconnect', function(){
+		usersOnline--;
 	});
 
-	socket.on("next", function(){
-		console.log("n");
-		socket.broadcast.emit("next");
+	socket.on("left", function(){
+		socket.broadcast.emit("left");
 	});
 
-	socket.on("prev", function(){
-		socket.broadcast.emit("prev");
+	socket.on("right", function(){
+		socket.broadcast.emit("right");
+	});
+
+	socket.on("up", function(){
+		socket.broadcast.emit("up");
+	});
+
+	socket.on("down", function(){
+		socket.broadcast.emit("down");
 	});
 
 });
