@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = "http://sting.jit.su//urucas-sting";
+        String url = "http://sting.jit.su/urucas-sting";
         sting = new Sting(url);
 
         nextButton = (ImageButton) findViewById(R.id.nextButton);
