@@ -39,6 +39,11 @@ app.get('/:namespace', function(req, res){
 	io.of("/"+chat)
 		.on('connection', function(socket){
 		
+		socket.on("right", function(){
+			socket.broadcast.emit("right");
+		});
+
+		/*
 		console.log("connection");
 		socket.on("left", function(){
 			socket.broadcast.emit("left");
@@ -55,27 +60,32 @@ app.get('/:namespace', function(req, res){
 		socket.on("down", function(){
 			socket.broadcast.emit("down");
 		});
+		*/ 
+
 	});
 })
 
 app.get('/:user/:presentation', function(req, res){
+	
 	user = req.params;
 	chat = user.user+"-"+user.presentation;
-
 	res.sendfile("views/index.html");
 	console.log("chatroom: /"+ chat);
+	
 	io.of("/"+chat)
 		.on('connection', function(socket){
 		
+		socket.on("right", function(){
+			socket.broadcast.emit("right");
+		});
+
+		/*
 		console.log("connection");
 		socket.on("left", function(){
 			socket.broadcast.emit("left");
 		});
 
-		socket.on("right", function(){
-			socket.broadcast.emit("right");
-		});
-
+	
 		socket.on("up", function(){
 			socket.broadcast.emit("up");
 		});
@@ -83,10 +93,11 @@ app.get('/:user/:presentation', function(req, res){
 		socket.on("down", function(){
 			socket.broadcast.emit("down");
 		});
+		*/
 	});
 });
 
-http.listen(80, function(){
-  console.log('listening on *:80');
+http.listen(3000, function(){
+	console.log("Server running");
 });
 

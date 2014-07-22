@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
         // LOG this level to the log
         logger.setLevel(Level.FINER);
 
-        String url = "http://sting.jit.su/urucas-sting";
+        String url = "http://sting.jit.su:80/urucas-sting";
         sting = new Sting(url);
 
         nextButton = (ImageButton) findViewById(R.id.nextButton);
@@ -78,10 +78,7 @@ public class MainActivity extends ActionBarActivity {
         preview.setWebViewClient(new BrowserClient());
         //preview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-        // preview.loadUrl("http://sting.jit.su/urucas/sting/");
-
-
-        preview.loadUrl("http://m.google.com");
+        preview.loadUrl("http://sting.jit.su/urucas/sting/");
     }
 
     private class BrowserClient extends WebViewClient{
