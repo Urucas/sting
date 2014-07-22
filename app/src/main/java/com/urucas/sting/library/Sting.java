@@ -88,6 +88,11 @@ public class Sting {
 
     }
 
-
-
+    public void moveToFirst() {
+        socket.emit("first", new Emitter.Listener(){
+            @Override
+            public void call(Object... args) {
+            }
+        });
+    }
 }

@@ -32,37 +32,38 @@ app.get('*.css', function(req, res){
 });
 
 var user, chat, usersOnline = 0;
+var namespaces = {};
 
 app.get('/:namespace', function(req, res){
 	chat = req.params.namespace;
 	console.log(chat);
-	io.of("/"+chat)
-		.on('connection', function(socket){
-		
-		socket.on("right", function(){
-			socket.broadcast.emit("right");
-		});
 
-		/*
-		console.log("connection");
-		socket.on("left", function(){
-			socket.broadcast.emit("left");
-		});
+	if(namespaces.chat == undefined) {
+		var nsp = io.of("/"+chat);
+		nsp.on('connection', function(socket){
+			socket.on("first", function(){
+				console.log("move to first");
+				socket.broadcast.emit("first");
+			});
 
-		socket.on("right", function(){
-			socket.broadcast.emit("right");
-		});
+			socket.on("right", function(){
+				socket.broadcast.emit("right");
+			});
 
-		socket.on("up", function(){
-			socket.broadcast.emit("up");
-		});
+			socket.on("left", function(){
+				socket.broadcast.emit("left");
+			});
 
-		socket.on("down", function(){
-			socket.broadcast.emit("down");
-		});
-		*/ 
+			socket.on("up", function(){
+				socket.broadcast.emit("up");
+			});
 
-	});
+			socket.on("down", function(){
+				socket.broadcast.emit("down");
+			});
+		});
+		namespaces.chat = nsp;
+	}
 })
 
 app.get('/:user/:presentation', function(req, res){
@@ -72,29 +73,34 @@ app.get('/:user/:presentation', function(req, res){
 	res.sendfile("views/index.html");
 	console.log("chatroom: /"+ chat);
 	
-	io.of("/"+chat)
-		.on('connection', function(socket){
+	if(namespaces.chat == undefined) {
+		console.log("new namespace");
+		var nsp = io.of("/"+chat);
+		nsp.on('connection', function(socket){
 		
-		socket.on("right", function(){
-			socket.broadcast.emit("right");
-		});
+			socket.on("right", function(){
+				socket.broadcast.emit("right");
+			});
 
-		/*
-		console.log("connection");
-		socket.on("left", function(){
-			socket.broadcast.emit("left");
-		});
+			socket.on("left", function(){
+				socket.broadcast.emit("left");
+			});
 
-	
-		socket.on("up", function(){
-			socket.broadcast.emit("up");
-		});
+			socket.on("up", function(){
+				socket.broadcast.emit("up");
+			});
 
-		socket.on("down", function(){
-			socket.broadcast.emit("down");
+			socket.on("down", function(){
+				socket.broadcast.emit("down");
+			});
+		
+			socket.on("first", function(){
+				socket.broadcast.emit("first");
+			});
+		
 		});
-		*/
-	});
+		namespaces.chat = nsp;
+	}
 });
 
 http.listen(3000, function(){

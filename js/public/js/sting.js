@@ -12,6 +12,9 @@ function Sting() {
 	this.down = function(callback) {
 		this._down = callback;
 	}
+	this.first = function(callback) {
+		this._first = callback;
+	}
 }
 
 var __sting__;
@@ -27,6 +30,7 @@ var vec  = window.location.pathname.split("/");
 for(i in vec) { if(!vec[i]) continue; chat.push(vec[i]) }
 chat = "/"+chat.join("-")
 console.log("chatroom: "+chat);
+
 var socket = io(chat);
 socket.on("left", function(u){
 var callback = sting()._left;
@@ -45,6 +49,11 @@ socket.on("down", function(u){
 	var callback = sting()._down;
 	try {	callback(u); }catch(e) { console.log(e); }
 });
+socket.on("first", function(u){
+	var callback = sting()._first;
+	try { callback(u)} catch(e) { console.log(e); }
+});
+
 
 // load user content and create reveal.js slide
 $(document).ready(function(){
@@ -84,10 +93,12 @@ function loadSlides(slide){
 			{ src: '/reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 		]*/
 	});
+
 	var s = sting();
 	s.right(function(){ Reveal.right();	});
 	s.left(function(){ Reveal.left();	});
 	s.up(function(){ Reveal.up(); });
 	s.down(function(){ Reveal.down(); });
+	s.first(function(){ Reveal.slide(0); });
 } 
 
