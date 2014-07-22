@@ -20,17 +20,19 @@ public class Sting {
     private Socket socket;
 
     public void emitNext() {
-        socket.emit("next", new Emitter.Listener() {
+        socket.emit("right", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
+                Log.i("emit ", args.toString());
             }
         });
     }
 
     public void emitPrev() {
-        socket.emit("prev", new Emitter.Listener(){
+        socket.emit("left", new Emitter.Listener(){
             @Override
             public void call(Object... args) {
+                Log.i("emit ", args.toString());
             }
         });
     }
@@ -39,6 +41,7 @@ public class Sting {
         socket.emit("up", new Emitter.Listener(){
             @Override
             public void call(Object... args) {
+                Log.i("emit ", args.toString());
             }
         });
     }
@@ -47,6 +50,7 @@ public class Sting {
         socket.emit("down", new Emitter.Listener(){
             @Override
             public void call(Object... args) {
+                Log.i("emit ", args.toString());
             }
         });
     }
@@ -55,9 +59,12 @@ public class Sting {
         try {
 
             socket = IO.socket(url);
+
+
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
+                    Log.i("args", args.toString());
                     Log.i("connected", "yes");
                 }
             });

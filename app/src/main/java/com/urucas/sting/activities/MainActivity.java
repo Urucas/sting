@@ -3,6 +3,7 @@ package com.urucas.sting.activities;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -11,6 +12,9 @@ import android.widget.ImageButton;
 
 import com.urucas.library.sting.R;
 import com.urucas.sting.library.Sting;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -25,6 +29,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Logger logger = Logger.getAnonymousLogger();
+        // LOG this level to the log
+        logger.setLevel(Level.FINER);
 
         String url = "http://sting.jit.su/urucas-sting";
         sting = new Sting(url);
@@ -70,8 +78,10 @@ public class MainActivity extends ActionBarActivity {
         preview.setWebViewClient(new BrowserClient());
         //preview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-        preview.loadUrl("http://sting.jit.su/urucas/sting/");
+        // preview.loadUrl("http://sting.jit.su/urucas/sting/");
 
+
+        preview.loadUrl("http://m.google.com");
     }
 
     private class BrowserClient extends WebViewClient{
