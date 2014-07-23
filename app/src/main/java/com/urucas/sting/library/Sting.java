@@ -19,7 +19,7 @@ public class Sting {
 
     private Socket socket;
 
-    public void emitNext() {
+    public void emitRight() {
         socket.emit("right", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -28,7 +28,7 @@ public class Sting {
         });
     }
 
-    public void emitPrev() {
+    public void emitLeft() {
         socket.emit("left", new Emitter.Listener(){
             @Override
             public void call(Object... args) {
@@ -59,7 +59,6 @@ public class Sting {
         try {
 
             socket = IO.socket(url);
-
 
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
