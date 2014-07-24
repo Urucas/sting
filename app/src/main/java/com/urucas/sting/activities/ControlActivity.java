@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.webkit.WebView;
@@ -99,6 +100,17 @@ public class ControlActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.control, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_goback:
+                finish();
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void socketConnected() {
