@@ -4,20 +4,18 @@ import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+
 import android.view.View;
-import android.webkit.WebSettings;
+
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
 
 import com.urucas.library.sting.R;
 import com.urucas.sting.gestures.OnSwipeTouchListener;
 import com.urucas.sting.library.Sting;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MainActivity extends ActionBarActivity {
 

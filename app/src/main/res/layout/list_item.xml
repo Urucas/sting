@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="12dp"
+    android:background="#cc000000"
+    android:weightSum="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.95"
+            android:text="My really long name presentation slide for JSCONFAR"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textSize="18dp"/>
+
+        <Button
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text=""
+            android:gravity="center_vertical"
+            android:background="@drawable/arrow_yellow"
+            android:id="@+id/button"
+            android:layout_gravity="center_vertical" />
+
+</LinearLayout>
