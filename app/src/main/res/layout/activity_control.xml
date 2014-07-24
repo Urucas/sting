@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".Main">
 
     <WebView
@@ -14,18 +15,20 @@
         android:layout_alignParentBottom="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/up_btt"
         android:id="@+id/upButton"
         android:background="@null"
+        android:scaleType="centerCrop"
         android:layout_above="@+id/prevButton"
         android:layout_toLeftOf="@+id/nextButton" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:text="prev"
+        android:scaleType="centerCrop"
         android:src="@drawable/prev_btt"
         android:id="@+id/prevButton"
         android:background="@null"
@@ -33,20 +36,22 @@
         android:layout_toLeftOf="@+id/upButton" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/next_btt"
         android:id="@+id/nextButton"
+        android:scaleType="centerCrop"
         android:background="@null"
         android:layout_above="@+id/downButton"
         android:layout_toRightOf="@+id/downButton" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/down_btt"
         android:id="@+id/downButton"
         android:background="@null"
+        android:scaleType="centerCrop"
         android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

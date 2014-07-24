@@ -16,6 +16,7 @@
             android:textColor="#ffffff"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
+            android:id="@+id/slideDesc"
             android:textSize="18dp"/>
 
         <Button

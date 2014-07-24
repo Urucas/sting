@@ -3,8 +3,10 @@ package com.urucas.sting.activities;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import android.webkit.WebView;
@@ -13,11 +15,11 @@ import android.widget.ImageButton;
 
 
 import com.urucas.library.sting.R;
-import com.urucas.sting.gestures.OnSwipeTouchListener;
 import com.urucas.sting.library.Sting;
+import com.urucas.sting.model.SlideNamespace;
 
 
-public class MainActivity extends ActionBarActivity {
+public class ControlActivity extends ActionBarActivity {
 
     private ImageButton prevButton;
     private WebView preview;
@@ -29,15 +31,30 @@ public class MainActivity extends ActionBarActivity {
     private boolean previewLoaded = false;
     private ProgressDialog dialog;
 
+    public static SlideNamespace namespace;
+    private static String baseURL = "http://sting.jit.su";
+    private ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_control);
 
-        String url = "http://sting.jit.su/urucas-eztenapp";
+        actionBar = getSupportActionBar();
+        actionBar.setTitle(namespace.getDesc());
+
+        String nsp = namespace.getNamespace();
+        String url = nsp.replace("-","/");
+
+        preview = (WebView) findViewById(R.id.previewWebView);
+        preview.getSettings().setJavaScriptEnabled(true);
+        preview.setWebViewClient(new BrowserClient());
+        preview.loadUrl(baseURL + url);
+
+        /*
         sting = new Sting(url);
 
-        dialog = ProgressDialog.show(MainActivity.this, "", "loading preview...", true);
+        dialog = ProgressDialog.show(ControlActivity.this, "", "loading preview...", true);
         dialog.setCancelable(false);
         dialog.show();
 
@@ -76,13 +93,13 @@ public class MainActivity extends ActionBarActivity {
                 sting.emitDown();
             }
         });
+        */
 
-        preview = (WebView) findViewById(R.id.previewWebView);
-        preview.getSettings().setJavaScriptEnabled(true);
-        preview.setWebViewClient(new BrowserClient());
+
         //preview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-        preview.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
+        /*
+        preview.setOnTouchListener(new OnSwipeTouchListener(ControlActivity.this) {
             public void onSwipeTop() {
                 sting.emitDown();
             }
@@ -97,12 +114,18 @@ public class MainActivity extends ActionBarActivity {
             }
 
         });
+        */
+        //
+    }
 
-        preview.loadUrl("http://sting.jit.su/urucas/eztenapp/");
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 
     private void startSliiding() {
-
+/*
         nextButton.setVisibility(View.VISIBLE);
         prevButton.setVisibility(View.VISIBLE);
         upButton.setVisibility(View.VISIBLE);
@@ -111,6 +134,7 @@ public class MainActivity extends ActionBarActivity {
         sting.moveToFirst();
 
         dialog.cancel();
+        */
     }
 
     private class BrowserClient extends WebViewClient{
