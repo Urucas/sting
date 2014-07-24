@@ -72,7 +72,7 @@ $(document).ready(function(){
 });
 
 function loadSlides(slide){
-	console.log(slide);
+	// console.log(slide);
 	$("#reveal-content").html(slide.content);
 	Reveal.initialize({
 		controls: false,

@@ -66,7 +66,8 @@ public class Sting {
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    callback.connected(args);
+                Log.i("connected", "yes");
+                callback.connected(args);
                 }
             });
             socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
