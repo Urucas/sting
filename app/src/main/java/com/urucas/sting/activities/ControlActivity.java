@@ -69,10 +69,7 @@ public class ControlActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        /*
-        finish();
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
-        */
+       Utils.Toast(ControlActivity.this, R.string.gomenu2back);
     }
 
     private void prepareSocket() {
@@ -102,10 +99,47 @@ public class ControlActivity extends ActionBarActivity {
         return true;
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        sting.disconnect();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        /*
+        if(sting != null) {
+            dialog = ProgressDialog.show(ControlActivity.this, "", "reconnecting socket...", true);
+            dialog.setCancelable(false);
+            dialog.show();
+
+            sting.reconnect(new SocketConnectionCallback() {
+                @Override
+                public void connected(Object... args) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.cancel();
+                        }
+                    });
+                }
+            });
+        }
+        */
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_goback:
+                sting.disconnect();
                 finish();
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 return true;

@@ -47,19 +47,10 @@ public class ListActivity extends ActionBarActivity {
         slideList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("click", "click");
                 SlideNamespace nsp = (SlideNamespace) parent.getItemAtPosition(position);
                 openSlideControl(nsp);
-            }
+             }
         });
-
-        new android.os.Handler().postDelayed(
-            new Runnable() {
-                public void run() {
-                    openSlideControl(nspAdapter.getItem(0));
-                }
-            },
-        3000);
     }
 
     private void openSlideControl(SlideNamespace nsp) {

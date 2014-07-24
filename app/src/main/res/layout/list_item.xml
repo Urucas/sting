@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:padding="12dp"
+    android:descendantFocusability="blocksDescendants"
     android:background="#cc000000"
     android:weightSum="1">
 

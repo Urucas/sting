@@ -71,6 +71,7 @@ public class Sting {
                 @Override
                 public void call(Object... args) {
                     Log.i("disconnected", "yes");
+
                 }
             });
             socket.on(Socket.EVENT_ERROR, new Emitter.Listener() {
@@ -87,11 +88,27 @@ public class Sting {
 
     }
 
+    public void reconnect(final SocketConnectionCallback callback) {
+        if(socket != null) {
+            socket.connect();
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                callback.connected(args);
+                }
+            });
+        }
+    }
+
     public void moveToFirst() {
         socket.emit("first", new Emitter.Listener(){
             @Override
             public void call(Object... args) {
             }
         });
+    }
+
+    public void disconnect() {
+        socket.disconnect();
     }
 }

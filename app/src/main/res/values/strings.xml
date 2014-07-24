@@ -12,5 +12,6 @@
     <string name="myslides">My Slides</string>
     <string name="readytoslide">ready to slide</string>
     <string name="back2slides">Back to slides</string>
+    <string name="gomenu2back">Go to the menu to get back to your slides list</string>
 
 </resources>
