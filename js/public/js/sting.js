@@ -1,5 +1,5 @@
 function Sting() {
-	this._left = this._right = this._up = this._down = null;
+	this._left = this._right = this._up = this._down = this._first = null;
 	this.left = function(callback) {
 		this._left = callback;
 	}

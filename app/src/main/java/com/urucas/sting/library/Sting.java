@@ -61,6 +61,8 @@ public class Sting {
 
             socket = IO.socket(url);
 
+            Log.i("creating socket", "yes");
+
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
@@ -110,5 +112,6 @@ public class Sting {
 
     public void disconnect() {
         socket.disconnect();
+        socket.close();
     }
 }

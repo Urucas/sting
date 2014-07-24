@@ -76,7 +76,7 @@ public class ControlActivity extends ActionBarActivity {
 
         dialog.cancel();
         dialog = ProgressDialog.show(ControlActivity.this, "", "connecting socket...", true);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
 
         String nsp = namespace.getNamespace();
