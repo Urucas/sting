@@ -60,7 +60,6 @@ public class Sting {
         try {
 
             socket = IO.socket(url);
-
             Log.i("creating socket", "yes");
 
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
@@ -70,6 +69,7 @@ public class Sting {
                 callback.connected(args);
                 }
             });
+
             socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {

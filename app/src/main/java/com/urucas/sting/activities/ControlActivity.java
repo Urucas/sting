@@ -16,7 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 
 
-import com.urucas.library.sting.R;
+import com.urucas.sting.R;
 import com.urucas.sting.callback.SocketConnectionCallback;
 import com.urucas.sting.gestures.OnSwipeTouchListener;
 import com.urucas.sting.library.Sting;
@@ -86,6 +86,7 @@ public class ControlActivity extends ActionBarActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Log.i("connect", "yes");
                         socketConnected();
                     }
                 });

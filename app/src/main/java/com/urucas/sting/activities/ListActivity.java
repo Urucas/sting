@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.urucas.library.sting.R;
+import com.urucas.sting.R;
 import com.urucas.sting.adapters.SlideAdapter;
 import com.urucas.sting.model.SlideNamespace;
 
