@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
 import android.webkit.WebView;
@@ -15,8 +16,11 @@ import android.widget.ImageButton;
 
 
 import com.urucas.library.sting.R;
+import com.urucas.sting.callback.SocketConnectionCallback;
+import com.urucas.sting.gestures.OnSwipeTouchListener;
 import com.urucas.sting.library.Sting;
 import com.urucas.sting.model.SlideNamespace;
+import com.urucas.sting.utils.Utils;
 
 
 public class ControlActivity extends ActionBarActivity {
@@ -46,59 +50,89 @@ public class ControlActivity extends ActionBarActivity {
         String nsp = namespace.getNamespace();
         String url = nsp.replace("-","/");
 
+        nextButton = (ImageButton) findViewById(R.id.nextButton);
+        prevButton = (ImageButton) findViewById(R.id.prevButton);
+        upButton = (ImageButton) findViewById(R.id.upButton);
+        downButton = (ImageButton) findViewById(R.id.downButton);
+
         preview = (WebView) findViewById(R.id.previewWebView);
         preview.getSettings().setJavaScriptEnabled(true);
         preview.setWebViewClient(new BrowserClient());
-        preview.loadUrl(baseURL + url);
-
-        /*
-        sting = new Sting(url);
 
         dialog = ProgressDialog.show(ControlActivity.this, "", "loading preview...", true);
         dialog.setCancelable(false);
         dialog.show();
 
-        nextButton = (ImageButton) findViewById(R.id.nextButton);
-        nextButton.setVisibility(View.INVISIBLE);
+        preview.loadUrl(baseURL + url);
+    }
+
+    @Override
+    public void onBackPressed() {
+        /*
+        finish();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        */
+    }
+
+    private void prepareSocket() {
+
+        dialog.cancel();
+        dialog = ProgressDialog.show(ControlActivity.this, "", "connecting socket...", true);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        String nsp = namespace.getNamespace();
+        sting = new Sting(baseURL + nsp, new SocketConnectionCallback() {
+            @Override
+            public void connected(Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        socketConnected();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.control, menu);
+        return true;
+    }
+
+    private void socketConnected() {
+        dialog.cancel();
+        prepareSlideControl();
+    }
+
+    private void prepareSlideControl() {
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sting.emitRight();
             }
         });
-
-        prevButton = (ImageButton) findViewById(R.id.prevButton);
-        prevButton.setVisibility(View.INVISIBLE);
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sting.emitLeft();
             }
         });
-
-        upButton = (ImageButton) findViewById(R.id.upButton);
-        upButton.setVisibility(View.INVISIBLE);
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sting.emitUp();
             }
         });
-
-        downButton = (ImageButton) findViewById(R.id.downButton);
-        downButton.setVisibility(View.INVISIBLE);
         downButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sting.emitDown();
             }
         });
-        */
 
-
-        //preview.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-
-        /*
         preview.setOnTouchListener(new OnSwipeTouchListener(ControlActivity.this) {
             public void onSwipeTop() {
                 sting.emitDown();
@@ -112,29 +146,10 @@ public class ControlActivity extends ActionBarActivity {
             public void onSwipeBottom() {
                 sting.emitUp();
             }
-
         });
-        */
-        //
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
-    }
-
-    private void startSliiding() {
-/*
-        nextButton.setVisibility(View.VISIBLE);
-        prevButton.setVisibility(View.VISIBLE);
-        upButton.setVisibility(View.VISIBLE);
-        downButton.setVisibility(View.VISIBLE);
-
         sting.moveToFirst();
 
-        dialog.cancel();
-        */
+        Utils.Toast(ControlActivity.this, R.string.readytoslide);
     }
 
     private class BrowserClient extends WebViewClient{
@@ -149,7 +164,7 @@ public class ControlActivity extends ActionBarActivity {
 
             if(!previewLoaded) {
                 previewLoaded = true;
-                startSliiding();
+                prepareSocket();
             }
         }
     }

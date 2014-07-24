@@ -5,6 +5,7 @@ import android.util.Log;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.urucas.sting.callback.SocketConnectionCallback;
 
 import java.net.URISyntaxException;
 
@@ -55,7 +56,7 @@ public class Sting {
         });
     }
 
-    public Sting(String url) {
+    public Sting(String url, final SocketConnectionCallback callback) {
         try {
 
             socket = IO.socket(url);
@@ -63,8 +64,7 @@ public class Sting {
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
-                    Log.i("args", args.toString());
-                    Log.i("connected", "yes");
+                    callback.connected(args);
                 }
             });
             socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
