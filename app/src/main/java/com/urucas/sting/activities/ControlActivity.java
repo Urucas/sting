@@ -51,6 +51,8 @@ public class ControlActivity extends ActionBarActivity {
         String nsp = namespace.getNamespace();
         String url = nsp.replace("-","/");
 
+        Log.i("preview url", url);
+
         nextButton = (ImageButton) findViewById(R.id.nextButton);
         prevButton = (ImageButton) findViewById(R.id.prevButton);
         upButton = (ImageButton) findViewById(R.id.upButton);
@@ -60,7 +62,7 @@ public class ControlActivity extends ActionBarActivity {
         preview.getSettings().setJavaScriptEnabled(true);
         preview.setWebViewClient(new BrowserClient());
 
-        dialog = ProgressDialog.show(ControlActivity.this, "", "loading preview...", true);
+        dialog = ProgressDialog.show(ControlActivity.this, "", getResources().getString(R.string.loadingpreview), true);
         dialog.setCancelable(false);
         dialog.show();
 
@@ -75,21 +77,22 @@ public class ControlActivity extends ActionBarActivity {
     private void prepareSocket() {
 
         dialog.cancel();
-        dialog = ProgressDialog.show(ControlActivity.this, "", "connecting socket...", true);
-        dialog.setCancelable(true);
+        dialog = ProgressDialog.show(ControlActivity.this, "", getResources().getString(R.string.connectingsocket), true);
+        dialog.setCancelable(false);
         dialog.show();
 
         String nsp = namespace.getNamespace();
-        sting = new Sting(baseURL + nsp, new SocketConnectionCallback() {
+        sting = Sting.singleton();
+        sting.socket(baseURL + nsp, new SocketConnectionCallback() {
             @Override
             public void connected(Object... args) {
-                runOnUiThread(new Runnable() {
+            runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("connect", "yes");
-                        socketConnected();
-                    }
-                });
+                Log.i("connect", "yes");
+                socketConnected();
+            }
+                        });
             }
         });
     }
@@ -99,7 +102,6 @@ public class ControlActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.control, menu);
         return true;
     }
-
 
     @Override
     public void onDestroy() {
