@@ -38,7 +38,7 @@ app.get('/:namespace', function(req, res){
 	chat = req.params.namespace;
 	console.log(chat);
 
-	if(namespaces.chat == undefined) {
+	if(namespaces[chat] == undefined) {
 		var nsp = io.of("/"+chat);
 		nsp.on('connection', function(socket){
 			socket.on("first", function(){
@@ -62,7 +62,7 @@ app.get('/:namespace', function(req, res){
 				socket.broadcast.emit("down");
 			});
 		});
-		namespaces.chat = nsp;
+		namespaces[chat] = nsp;
 	}
 })
 
@@ -72,8 +72,9 @@ app.get('/:user/:presentation', function(req, res){
 	chat = user.user+"-"+user.presentation;
 	res.sendfile("views/index.html");
 	console.log("chatroom: /"+ chat);
+//	console.log(namespaces);
 	
-	if(namespaces.chat == undefined) {
+	if(namespaces[chat] == undefined) {
 		console.log("new namespace");
 		var nsp = io.of("/"+chat);
 		nsp.on('connection', function(socket){
@@ -99,7 +100,7 @@ app.get('/:user/:presentation', function(req, res){
 			});
 		
 		});
-		namespaces.chat = nsp;
+		namespaces[chat] = nsp;
 	}
 });
 
