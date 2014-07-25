@@ -3,8 +3,10 @@ package com.urucas.sting.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.urucas.sting.R;
@@ -17,6 +19,8 @@ public class LoginActivity extends Activity {
 
     private TextView forgotBtt;
     private Button loginBtt;
+    private EditText emailText;
+    private EditText passText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +39,21 @@ public class LoginActivity extends Activity {
         loginBtt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoginSuccess();
+
             }
         });
+
+        String email = Utils.getEmailAccount(LoginActivity.this);
+
+        emailText = (EditText) findViewById(R.id.editText);
+        emailText.setText(email);
+
+        passText = (EditText) findViewById(R.id.passEdit);
+    }
+
+    private void login() {
+        String email = emailText.getText().toString().trim();
+        String pass = passText.getText().toString();
     }
 
     private void onLoginSuccess() {
