@@ -13,4 +13,11 @@ public class StingApp extends Application {
         super();
         _instance = this;
     }
+
+    public static StingApp singleton() {
+        if(_instance == null) {
+            _instance = new StingApp();
+        }
+        return _instance;
+    }
 }
