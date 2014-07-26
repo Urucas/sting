@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.urucas.sting.R;
+import com.urucas.sting.model.CustomError;
 import com.urucas.sting.utils.Utils;
 
 /**
@@ -53,13 +55,27 @@ public class LoginActivity extends Activity {
 
     private void login() {
         String email = emailText.getText().toString().trim();
-        String pass = passText.getText().toString();
+        if(email.length()==0) {
+            Utils.Toast(LoginActivity.this, R.string.emailempty, Toast.LENGTH_LONG);
+            return;
+        }
+
+        String pass = passText.getText().toString().trim();
+        if(email.length()==0) {
+            Utils.Toast(LoginActivity.this, R.string.passempty, Toast.LENGTH_LONG);
+            return;
+        }
+
     }
 
-    private void onLoginSuccess() {
+    private void onLoginSuccess(){
         Intent intent = new Intent(LoginActivity.this, ListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    private void onLoginError(CustomError error){
+        Utils.Toast(LoginActivity.this, error.getLocalizedMessage());
     }
 
     @Override
