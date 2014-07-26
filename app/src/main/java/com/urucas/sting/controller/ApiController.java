@@ -5,6 +5,7 @@ import android.provider.Settings.Secure;
 
 import com.urucas.sting.application.StingApp;
 import com.urucas.sting.callback.LoginCallback;
+import com.urucas.sting.callback.SlidesNamespacesCallback;
 import com.urucas.sting.model.CustomError;
 import com.urucas.sting.model.User;
 import com.urucas.sting.parser.ErrorParser;
@@ -38,6 +39,10 @@ public class ApiController {
         //checks internet connection
 		return Utils.isConnected(StingApp.singleton().getApplicationContext());
 	}
+
+    public void getSlides(int uid, final SlidesNamespacesCallback callback){
+
+    }
 
     public void login(String email, String pass, final LoginCallback callback) {
 
