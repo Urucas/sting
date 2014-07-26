@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 public class ApiController {
 
-	private static String BASE_URL = "http://sting.urucas.com.ar/api";
+	private static String BASE_URL = "http://sting.urucas.com/api";
 
     private static String UUID;
 
