@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">EztenApp</string>
     <string name="login">login</string>
     <string name="join">join</string>
@@ -15,4 +14,14 @@
     <string name="gomenu2back">Go to the menu to get back to your slides list</string>
     <string name="loadingpreview">loading slides preview...</string>
     <string name="connectingsocket">connecting socket...</string>
+    <string name="emailempty">email field is empty!</string>
+    <string name="passempty">password field is empty!</string>
+
+    <!-- error messages -->
+    <string name="invalid_json_response">There was a problem with the server response, please try again!</string>
+    <string name="invalid_token">Session closed, please login again!</string>
+    <string name="user_not_found">user/password incorrect!</string>
+    <string name="invalid_password">user/password incorrect!</string>
+    <string name="token_create_error">There was a problem trying to create the session, please try again!</string>
+    <string name="no_connection">No interner connection was found!</string>
 </resources>
