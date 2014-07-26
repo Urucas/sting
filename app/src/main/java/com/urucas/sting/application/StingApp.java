@@ -14,8 +14,8 @@ import com.urucas.sting.controller.PersistentController;
 public class StingApp extends Application {
 
     private static StingApp _instance;
-    private static PersistentController _persistance;
-    private static ApiController _api;
+    private PersistentController _persistance;
+    private ApiController _api;
 
     public StingApp() {
         super();
@@ -29,14 +29,14 @@ public class StingApp extends Application {
         return _instance;
     }
 
-    public static PersistentController getPersistance() {
+    public PersistentController getPersistance() {
         if(_persistance == null){
             _persistance = new PersistentController();
         }
         return _persistance;
     }
 
-    public static ApiController getApiController(){
+    public ApiController getApiController(){
         if(_api == null) {
             _api = new ApiController();
         }
