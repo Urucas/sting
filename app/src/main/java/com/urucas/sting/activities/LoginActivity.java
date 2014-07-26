@@ -75,7 +75,6 @@ public class LoginActivity extends Activity {
         dialog.show();
 
         StingApp.getApiController().login(
-            LoginActivity.this,
             email,
             pass,
             new LoginCallback(){
