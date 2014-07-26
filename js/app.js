@@ -72,7 +72,6 @@ app.get('/:user/:presentation', function(req, res){
 	chat = user.user+"-"+user.presentation;
 	res.sendfile("views/index.html");
 	console.log("chatroom: /"+ chat);
-//	console.log(namespaces);
 	
 	if(namespaces[chat] == undefined) {
 		console.log("new namespace");
