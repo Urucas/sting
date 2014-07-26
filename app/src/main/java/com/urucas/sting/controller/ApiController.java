@@ -39,7 +39,7 @@ public class ApiController {
 		return Utils.isConnected(StingApp.singleton().getApplicationContext());
 	}
 
-    public void login(Context context, String email, String pass, final LoginCallback callback) {
+    public void login(String email, String pass, final LoginCallback callback) {
 
         if(!isConnected()) {
             callback.onError(new CustomError("NO_CONNECTION"));
