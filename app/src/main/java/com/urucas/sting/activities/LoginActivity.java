@@ -1,6 +1,7 @@
 package com.urucas.sting.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.urucas.sting.R;
+import com.urucas.sting.application.StingApp;
+import com.urucas.sting.callback.LoginCallback;
 import com.urucas.sting.model.CustomError;
 import com.urucas.sting.utils.Utils;
 
@@ -23,6 +26,7 @@ public class LoginActivity extends Activity {
     private Button loginBtt;
     private EditText emailText;
     private EditText passText;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class LoginActivity extends Activity {
         loginBtt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                login();
             }
         });
 
@@ -61,20 +65,42 @@ public class LoginActivity extends Activity {
         }
 
         String pass = passText.getText().toString().trim();
-        if(email.length()==0) {
+        if(pass.length()==0) {
             Utils.Toast(LoginActivity.this, R.string.passempty, Toast.LENGTH_LONG);
             return;
         }
 
+        dialog = ProgressDialog.show(LoginActivity.this, "", getResources().getString(R.string.loginin), true);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        StingApp.getApiController().login(
+            LoginActivity.this,
+            email,
+            pass,
+            new LoginCallback(){
+                @Override
+                public void onSuccess() {
+                    onLoginSuccess();
+                }
+
+                @Override
+                public void onError(CustomError error) {
+                    onLoginError(error);
+                }
+        });
     }
 
     private void onLoginSuccess(){
+        dialog.cancel();
+
         Intent intent = new Intent(LoginActivity.this, ListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
     private void onLoginError(CustomError error){
+        dialog.cancel();
         Utils.Toast(LoginActivity.this, error.getLocalizedMessage());
     }
 
