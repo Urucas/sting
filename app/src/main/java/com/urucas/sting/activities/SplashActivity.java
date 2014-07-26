@@ -85,4 +85,9 @@ public class SplashActivity extends Activity {
         joinBtt.setVisibility(View.VISIBLE);
         loginBtt.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }
