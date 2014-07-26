@@ -1,7 +1,10 @@
 package com.urucas.sting.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 
+import com.urucas.sting.activities.SplashActivity;
 import com.urucas.sting.controller.ApiController;
 import com.urucas.sting.controller.PersistentController;
 
@@ -38,5 +41,16 @@ public class StingApp extends Application {
             _api = new ApiController();
         }
         return _api;
+    }
+
+    public static void logout(Context context) {
+        try {
+            StingApp.singleton().getPersistance().logout(context);
+
+            Intent intent = new Intent(context, SplashActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+
+        }catch(Exception e){}
     }
 }
