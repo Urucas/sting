@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.urucas.sting.R;
 import com.urucas.sting.adapters.SlideAdapter;
+import com.urucas.sting.application.StingApp;
 import com.urucas.sting.model.SlideNamespace;
+import com.urucas.sting.model.User;
 
 import java.util.ArrayList;
 
@@ -22,10 +24,12 @@ import java.util.ArrayList;
 public class ListActivity extends ActionBarActivity {
 
     private static final int CONTROL_INTENT = 1;
+    private static final String TAG_NAME = "ListActivity";
     private TextView forgotBtt;
     private ActionBar actionBar;
     private ListView slideList;
     private SlideAdapter nspAdapter;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,15 @@ public class ListActivity extends ActionBarActivity {
                 openSlideControl(nsp);
              }
         });
+
+        StingApp app = StingApp.singleton();
+        try {
+            user = app.getPersistance().getUser(ListActivity.this);
+            Log.i(TAG_NAME, user.getEmail());
+
+        }catch(Exception e){
+            app.logout(ListActivity.this);
+        }
     }
 
     private void openSlideControl(SlideNamespace nsp) {
