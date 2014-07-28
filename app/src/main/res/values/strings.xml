@@ -19,6 +19,8 @@
     <string name="loginin">login in...</string>
     <string name="gettingslides">getting slides...</string>
 
+    <string name="logout">logout</string>
+    <string name="refresh">refresh</string>
     <!-- error messages -->
     <string name="invalid_json_response">There was a problem with the server response, please try again!</string>
     <string name="invalid_token">Session closed, please login again!</string>

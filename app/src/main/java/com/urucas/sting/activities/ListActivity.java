@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -62,14 +64,18 @@ public class ListActivity extends ActionBarActivity {
         app = StingApp.singleton();
         try {
             user = app.getPersistance().getUser(ListActivity.this);
-            getSlides(user);
+            getSlides();
 
         }catch(Exception e){
             app.logout(ListActivity.this);
         }
     }
 
-    private void getSlides(User user){
+    private void logout() {
+        app.logout(ListActivity.this);
+    }
+
+    private void getSlides(){
 
         dialog = ProgressDialog.show(ListActivity.this, "", getResources().getString(R.string.gettingslides), true);
         dialog.setCancelable(true);
@@ -116,5 +122,24 @@ public class ListActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                getSlides();
+                return true;
+            case R.id.action_logout:
+                logout();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
