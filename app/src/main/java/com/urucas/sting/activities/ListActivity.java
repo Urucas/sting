@@ -37,6 +37,8 @@ public class ListActivity extends ActionBarActivity {
     private ProgressDialog dialog;
     private StingApp app;
 
+    private ArrayList<SlideNamespace> namespaces = new ArrayList<SlideNamespace>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +46,6 @@ public class ListActivity extends ActionBarActivity {
 
         actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.myslides);
-
-        ArrayList<SlideNamespace> namespaces = new ArrayList<SlideNamespace>();
-        namespaces.add(new SlideNamespace(1, "sting", "/urucas-sting", "Really short slide test"));
-        namespaces.add(new SlideNamespace(2, "appium", "/urucas-appium", "Filmaj Appium presentation used as example"));
-        namespaces.add(new SlideNamespace(3, "eztenapp", "/urucas-eztenapp", "So ? What is eztenapp ? A quick slide presentation"));
 
         nspAdapter = new SlideAdapter(ListActivity.this, R.layout.list_item, namespaces);
 
@@ -75,13 +72,13 @@ public class ListActivity extends ActionBarActivity {
     private void getSlides(User user){
 
         dialog = ProgressDialog.show(ListActivity.this, "", getResources().getString(R.string.gettingslides), true);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
 
-        app.getApiController().getSlides(user.getId(), new SlidesNamespacesCallback() {
+        app.getApiController().getSlides(user, new SlidesNamespacesCallback() {
             @Override
             public void onSuccess(ArrayList<SlideNamespace> namespaces) {
-
+                onGetSlidesSuccess(namespaces);
             }
 
             @Override
@@ -89,6 +86,19 @@ public class ListActivity extends ActionBarActivity {
                 onGetSlidesError(error);
             }
         });
+    }
+
+    private void onGetSlidesSuccess(ArrayList<SlideNamespace> namespaces) {
+
+        this.namespaces = namespaces;
+        try {
+            nspAdapter.clear();
+            nspAdapter.addAll(namespaces);
+            nspAdapter.notifyDataSetChanged();
+
+            dialog.cancel();
+
+        }catch(Exception e){}
     }
 
     private void onGetSlidesError(CustomError error) {
