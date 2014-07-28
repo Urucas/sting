@@ -2,13 +2,16 @@ package com.urucas.sting.controller;
 
 import android.content.Context;
 import android.provider.Settings.Secure;
+import android.util.Log;
 
 import com.urucas.sting.application.StingApp;
 import com.urucas.sting.callback.LoginCallback;
 import com.urucas.sting.callback.SlidesNamespacesCallback;
 import com.urucas.sting.model.CustomError;
+import com.urucas.sting.model.SlideNamespace;
 import com.urucas.sting.model.User;
 import com.urucas.sting.parser.ErrorParser;
+import com.urucas.sting.parser.SlidesParser;
 import com.urucas.sting.parser.UserParser;
 import com.urucas.sting.services.JSONRequestTask;
 import com.urucas.sting.services.JSONRequestTaskHandler;
@@ -17,9 +20,12 @@ import com.urucas.sting.utils.Utils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class ApiController {
 
-	private static String BASE_URL = "http://sting.urucas.com/api";
+    private static final String TAG_NAME = "ApiController";
+    private static String BASE_URL = "http://sting.urucas.com/api";
 
     private static String UUID;
 
@@ -40,7 +46,34 @@ public class ApiController {
 		return Utils.isConnected(StingApp.singleton().getApplicationContext());
 	}
 
-    public void getSlides(int uid, final SlidesNamespacesCallback callback){
+    public void getSlides(User user, final SlidesNamespacesCallback callback){
+        if(!isConnected()) {
+            callback.onError(new CustomError("NO_CONNECTION"));
+            return;
+        }
+
+        String url = BASE_URL + "/listslides";
+
+        new JSONRequestTask(new JSONRequestTaskHandler() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                if(response.has("error")) {
+                    callback.onError(ErrorParser.parse(response));
+                    return;
+                }
+                ArrayList<SlideNamespace> nsps = SlidesParser.parse(response);
+                callback.onSuccess(nsps);
+            }
+            @Override
+            public void onSuccess(JSONArray result) {
+            }
+            @Override
+            public void onError(String message) {
+                callback.onError(new CustomError("INVALID_JSON_RESPONSE"));
+            }
+
+        }).addParam("i", getUUID()).addParam("t", user.getToken())
+          .execute(url);
 
     }
 
