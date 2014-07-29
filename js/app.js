@@ -42,7 +42,6 @@ app.get('/:namespace', function(req, res){
 		var nsp = io.of("/"+chat);
 		nsp.on('connection', function(socket){
 			socket.on("first", function(){
-				console.log("move to first");
 				socket.broadcast.emit("first");
 			});
 
@@ -74,7 +73,6 @@ app.get('/:user/:presentation', function(req, res){
 	console.log("chatroom: /"+ chat);
 	
 	if(namespaces[chat] == undefined) {
-		console.log("new namespace");
 		var nsp = io.of("/"+chat);
 		nsp.on('connection', function(socket){
 		
