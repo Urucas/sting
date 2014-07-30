@@ -1,5 +1,5 @@
 function Sting() {
-	this._left = this._right = this._up = this._down = this._first = null;
+	this._left = this._right = this._up = this._down = this._first = this._welcome = null;
 	this.left = function(callback) {
 		this._left = callback;
 	}
@@ -14,6 +14,9 @@ function Sting() {
 	}
 	this.first = function(callback) {
 		this._first = callback;
+	}
+	this.welcome = function(callback) {
+		this._welcome = callback;
 	}
 }
 
@@ -53,7 +56,10 @@ socket.on("first", function(u){
 	var callback = sting()._first;
 	try { callback(u)} catch(e) { console.log(e); }
 });
-
+socket.on("welcome", function(u){
+	var callback = sting()._welcome;
+	try { callback(u) } catch(e){ console.log(e); }
+})
 
 // load user content and create reveal.js slide
 $(document).ready(function(){
@@ -63,6 +69,7 @@ $(document).ready(function(){
 		dataType: 'json',
 		type: "POST",
 		success: function(r){
+			socket.emit("welcome"); 
 			loadSlides(r.slides);
 		},
 		error: function(e){
@@ -100,5 +107,6 @@ function loadSlides(slide){
 	s.up(function(){ Reveal.up(); });
 	s.down(function(){ Reveal.down(); });
 	s.first(function(){ Reveal.slide(0); });
+	s.welcome(function(c){ Reveal.slide(c.cslide); });
 } 
 

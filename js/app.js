@@ -42,14 +42,17 @@ app.get('/:namespace', function(req, res){
 		var nsp = io.of("/"+chat);
 		nsp.on('connection', function(socket){
 			socket.on("first", function(){
+				namespaces[chat].cslide = 0;
 				socket.broadcast.emit("first");
 			});
 
 			socket.on("right", function(){
+				namespaces[chat].cslide = namespaces[chat].cslide + 1; 
 				socket.broadcast.emit("right");
 			});
 
 			socket.on("left", function(){
+				namespaces[chat].cslide = namespaces[chat].cslide == 0 ? 0 : namespaces[chat].cslide-1; 
 				socket.broadcast.emit("left");
 			});
 
@@ -62,6 +65,7 @@ app.get('/:namespace', function(req, res){
 			});
 		});
 		namespaces[chat] = nsp;
+		namespaces[chat].cslide = 0;
 	}
 })
 
@@ -77,10 +81,12 @@ app.get('/:user/:presentation', function(req, res){
 		nsp.on('connection', function(socket){
 		
 			socket.on("right", function(){
+				namespaces[chat].cslide = namespaces[chat].cslide + 1;
 				socket.broadcast.emit("right");
 			});
 
 			socket.on("left", function(){
+				namespaces[chat].cslide = namespaces[chat].cslide == 0 ? 0 : namespaces[chat].cslide-1; 
 				socket.broadcast.emit("left");
 			});
 
@@ -93,11 +99,17 @@ app.get('/:user/:presentation', function(req, res){
 			});
 		
 			socket.on("first", function(){
+				namespaces[chat].cslide = 0;
 				socket.broadcast.emit("first");
+			});
+
+			socket.on("welcome", function(){
+				socket.emit("welcome", {cslide: namespaces[chat].cslide});
 			});
 		
 		});
 		namespaces[chat] = nsp;
+		namespaces[chat].cslide = 0;
 	}
 });
 
