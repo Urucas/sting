@@ -69,8 +69,9 @@ $(document).ready(function(){
 		dataType: 'json',
 		type: "POST",
 		success: function(r){
-			socket.emit("welcome"); 
-			loadSlides(r.slides);
+			var s = r.slides;
+			if(s.type =="reveal.js") { prepareRevealJS(s) }
+			else if(s.type =="slideshare") { prepareSlideshare(s); }
 		},
 		error: function(e){
 			alert(e);
@@ -78,7 +79,19 @@ $(document).ready(function(){
 	});
 });
 
-function loadSlides(slide){
+function prepareSlideshare(slide) {
+	console.log("is slideshare type");
+	console.log(slide);
+
+	var s = sting();
+	s.right(function(){ $(".btnNext").trigger("click");	});
+	s.left(function(){ $(".btnPrev").trigger("click");	});
+	s.first(function(){ $(".btnFirst").trigger("click"); });
+	s.welcome(function(c){ console.log(c.cslide); });
+
+}
+
+function prepareReveal(slide){
 	// console.log(slide);
 	$("#reveal-content").html(slide.content);
 	Reveal.initialize({
@@ -108,5 +121,7 @@ function loadSlides(slide){
 	s.down(function(){ Reveal.down(); });
 	s.first(function(){ Reveal.slide(0); });
 	s.welcome(function(c){ Reveal.slide(c.cslide); });
+	
+	socket.emit("welcome"); 
 } 
 
