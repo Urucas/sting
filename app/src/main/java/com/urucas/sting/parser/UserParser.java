@@ -15,7 +15,7 @@ public abstract class UserParser {
             JSONObject userObject = result.getJSONObject("user");
 
 			int id  = userObject.getInt("id");
-            String name = userObject.getString("username");
+            String name = userObject.getString("namespace");
             String email = userObject.getString("email");
             String pass = userObject.getString("password");
 
