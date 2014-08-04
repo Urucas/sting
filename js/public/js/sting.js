@@ -91,7 +91,7 @@ function prepareSlideshare(slide) {
 	});
 	document.getElementById("reveal-content").innerHTML = slide.content;
 	
-	$(".nav").css("visibility","hidden");
+//	$(".nav").css("visibility","hidden");
 	$(".btnFullScreen").hide();
 	$(".goToSlideLabel").find("input[type='text']").attr("disabled","disabled");
 }
