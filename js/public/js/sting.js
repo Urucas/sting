@@ -80,14 +80,16 @@ $(document).ready(function(){
 });
 
 function prepareSlideshare(slide) {
-	console.log("is slideshare type");
-	console.log(slide);
-
+	
 	var s = sting();
 	s.right(function(){ $(".btnNext").trigger("click");	});
 	s.left(function(){ $(".btnPrev").trigger("click");	});
 	s.first(function(){ $(".btnFirst").trigger("click"); });
-	s.welcome(function(c){ console.log(c.cslide); });
+	s.welcome(function(c){ 
+		var e = jQuery.Event("keypress"); e.which = 13; e.keyCode = 13; 
+		$(".goToSlideLabel").find("input[type='text']").val(c.cslide);
+		$(".goToSlideLabel").find("input[type='text']").trigger(e);
+	});
 
 }
 
