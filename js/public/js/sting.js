@@ -80,7 +80,6 @@ $(document).ready(function(){
 });
 
 function prepareSlideshare(slide) {
-	
 	var s = sting();
 	s.right(function(){ $(".btnNext").trigger("click");	});
 	s.left(function(){ $(".btnPrev").trigger("click");	});
@@ -90,7 +89,11 @@ function prepareSlideshare(slide) {
 		$(".goToSlideLabel").find("input[type='text']").val(c.cslide);
 		$(".goToSlideLabel").find("input[type='text']").trigger(e);
 	});
-
+	document.getElementById("reveal-content").innerHTML = slide.content;
+	
+	$(".nav").css("visibility","hidden");
+	$(".btnFullScreen").hide();
+	$(".goToSlideLabel").find("input[type='text']").attr("disabled","disabled");
 }
 
 function prepareReveal(slide){
