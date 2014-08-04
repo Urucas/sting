@@ -96,7 +96,7 @@ function prepareSlideshare(slide) {
 	$(".goToSlideLabel").find("input[type='text']").attr("disabled","disabled");
 }
 
-function prepareReveal(slide){
+function prepareRevealJS(slide){
 	// console.log(slide);
 	$("#reveal-content").html(slide.content);
 	Reveal.initialize({
