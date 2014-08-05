@@ -101,9 +101,9 @@ function ssgoto(n) {
 	var s = $(".slide_container > .slide");
 	if(n>s.length) return;
 	s.each(function(){
-		var o = $(this); with(o){ hide(); css("height", "100%"); var i = attr("data-index"); }
+		var o = $(this); o.hide(); o.css("height", "100%"); var i = o.attr("data-index");
 		if(i==n) { o.show(); var img = o.find('img')[0];
-			with(img) { src = getAttribute("data-full"); style.heigth = "100%";	}
+			img.src = img.getAttribute("data-full"); img.style.heigth = "100%";
 			$(".goToSlideLabel").find("input[type='text']").val(n);
 		}
 	});

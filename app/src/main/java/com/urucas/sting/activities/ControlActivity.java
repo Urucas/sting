@@ -55,9 +55,14 @@ public class ControlActivity extends ActionBarActivity {
         prevButton = (ImageButton) findViewById(R.id.prevButton);
         upButton = (ImageButton) findViewById(R.id.upButton);
         downButton = (ImageButton) findViewById(R.id.downButton);
+
         if(namespace.getType().equals("slideshare")) {
+
             upButton.setVisibility(View.INVISIBLE);
             downButton.setVisibility(View.INVISIBLE);
+
+            // change buttons image
+            
         }
 
         preview = (WebView) findViewById(R.id.previewWebView);
