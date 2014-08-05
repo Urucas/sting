@@ -48,12 +48,12 @@ app.get('/:namespace', function(req, res){
 
 			socket.on("right", function(){
 				namespaces[chat].cslide = namespaces[chat].cslide + 1; 
-				socket.broadcast.emit("right");
+				socket.broadcast.emit("right", {cslide: namespaces[chat].cslide});
 			});
 
 			socket.on("left", function(){
 				namespaces[chat].cslide = namespaces[chat].cslide == 0 ? 0 : namespaces[chat].cslide-1; 
-				socket.broadcast.emit("left");
+				socket.broadcast.emit("left", {cslide: namespaces[chat].cslide});
 			});
 
 			socket.on("up", function(){
@@ -82,12 +82,12 @@ app.get('/:user/:presentation', function(req, res){
 		
 			socket.on("right", function(){
 				namespaces[chat].cslide = namespaces[chat].cslide + 1;
-				socket.broadcast.emit("right");
+				socket.broadcast.emit("right", {cslide: namespaces[chat].cslide});
 			});
 
 			socket.on("left", function(){
 				namespaces[chat].cslide = namespaces[chat].cslide == 0 ? 0 : namespaces[chat].cslide-1; 
-				socket.broadcast.emit("left");
+				socket.broadcast.emit("left", {cslide: namespaces[chat].cslide});
 			});
 
 			socket.on("up", function(){

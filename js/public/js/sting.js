@@ -81,19 +81,27 @@ $(document).ready(function(){
 
 function prepareSlideshare(slide) {
 	var s = sting();
-	s.right(function(){ $(".btnNext").trigger("click");	});
-	s.left(function(){ $(".btnPrev").trigger("click");	});
-	s.first(function(){ $(".btnFirst").trigger("click"); });
-	s.welcome(function(c){ 
-		var e = jQuery.Event("keypress"); e.which = 13; e.keyCode = 13; 
-		$(".goToSlideLabel").find("input[type='text']").val(c.cslide);
-		$(".goToSlideLabel").find("input[type='text']").trigger(e);
-	});
+	s.right(function(c){ ssgoto(c.cslide+1); });
+	s.left(function(c){ ssgoto(c.cslide+1); });
+	s.first(function(c){ ssgoto(1); });
+	s.welcome(function(c){ ssgoto(c.cslide+1); });
+
 	document.getElementById("reveal-content").innerHTML = slide.content;
-	
-//	$(".nav").css("visibility","hidden");
+		
+	$(".nav").css("visibility","hidden");
 	$(".btnFullScreen").hide();
 	$(".goToSlideLabel").find("input[type='text']").attr("disabled","disabled");
+
+	socket.emit("welcome");
+}
+
+function ssgoto(n) {
+	$(".slide_container > .slide").each(function(){
+		var o = $(this); with(o){ hide(); css("height", "100%"); var i = attr("data-index"); }
+		if(i==n) { o.show(); var img = o.find('img')[0];
+			with(img) { src = getAttribute("data-full"); style.heigth = "100%";	}
+		}
+	});
 }
 
 function prepareRevealJS(slide){
