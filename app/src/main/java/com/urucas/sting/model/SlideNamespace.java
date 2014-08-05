@@ -7,17 +7,18 @@ public class SlideNamespace {
 
 
     private int id;
-    private String name, namespace, desc;
+    private String name, namespace, desc, type;
 
     public SlideNamespace(){
 
     }
 
-    public SlideNamespace(int id, String name, String namespace, String desc) {
+    public SlideNamespace(int id, String name, String namespace, String desc, String type) {
         this.setId(id);
         this.setName(name);
         this.setNamespace(namespace);
         this.setDesc(desc);
+        this.setType(type);
     }
 
     public int getId() {
@@ -51,5 +52,14 @@ public class SlideNamespace {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }
 

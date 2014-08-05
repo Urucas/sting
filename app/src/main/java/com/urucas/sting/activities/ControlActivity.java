@@ -51,12 +51,14 @@ public class ControlActivity extends ActionBarActivity {
         String nsp = namespace.getNamespace();
         String url = nsp.replace("-","/");
 
-        Log.i("preview url", url);
-
         nextButton = (ImageButton) findViewById(R.id.nextButton);
         prevButton = (ImageButton) findViewById(R.id.prevButton);
         upButton = (ImageButton) findViewById(R.id.upButton);
         downButton = (ImageButton) findViewById(R.id.downButton);
+        if(namespace.getType().equals("slideshare")) {
+            upButton.setVisibility(View.INVISIBLE);
+            downButton.setVisibility(View.INVISIBLE);
+        }
 
         preview = (WebView) findViewById(R.id.previewWebView);
         preview.getSettings().setJavaScriptEnabled(true);

@@ -18,18 +18,18 @@ public abstract class SlideParser {
             String name = result.getString("name");
             String desc = result.getString("descrip");
             String namespace = result.getString("chatroom");
+            String type = result.getString("type");
 
             SlideNamespace _nsp = new SlideNamespace();
             _nsp.setId(id);
             _nsp.setName(name);
             _nsp.setDesc(desc);
             _nsp.setNamespace(namespace);
+            _nsp.setType(type);
 
             return _nsp;
 
-		} catch (JSONException e) {
-            Log.i(TAG_NAME, "aca");
-            e.printStackTrace(); }
+		} catch (JSONException e) { e.printStackTrace(); }
 		
 		return null;
 	}
