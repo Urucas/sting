@@ -62,7 +62,9 @@ public class ControlActivity extends ActionBarActivity {
             downButton.setVisibility(View.INVISIBLE);
 
             // change buttons image
-            
+            nextButton.setImageResource(R.drawable.ss_next);
+            prevButton.setImageResource(R.drawable.ss_prev);
+                    
         }
 
         preview = (WebView) findViewById(R.id.previewWebView);
