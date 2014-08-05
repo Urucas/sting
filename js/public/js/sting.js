@@ -85,6 +85,8 @@ function prepareSlideshare(slide) {
 	s.left(function(c){ ssgoto(c.cslide+1); });
 	s.first(function(c){ ssgoto(1); });
 	s.welcome(function(c){ ssgoto(c.cslide+1); });
+	s.up(function(){ console.log("UP ...like the movie!"); });
+	s.down(function(){ console.log("DOWN... https://www.youtube.com/watch?v=TiX8Rz5C3LY"); });
 
 	document.getElementById("reveal-content").innerHTML = slide.content;
 		
