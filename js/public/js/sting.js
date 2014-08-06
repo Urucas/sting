@@ -40,7 +40,6 @@ var callback = sting()._left;
 	try { callback(u); }catch(e){ console.log(e); }
 });
 socket.on("right", function(u){
-	console.log("move to right");
 	var callback = sting()._right;
 	try {	callback(u); }catch(e) { console.log(e); }
 });
